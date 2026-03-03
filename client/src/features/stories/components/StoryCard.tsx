@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import type { Story } from "../types/types";
-import { AddToLibraryButton } from "../../library/components/AddToLibraryButton";
+import { AddToLibraryButton } from "../../dashboard/library/components/AddToLibraryButton";
 
 interface Props {
   story: Story;

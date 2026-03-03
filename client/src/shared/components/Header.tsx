@@ -1,6 +1,28 @@
-import { Link } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Header = () => {
+  const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowMenu(false);
+      }
+    };
+
+    if (showMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showMenu]);
+
   return (
     <header
       style={{
@@ -92,24 +114,92 @@ export const Header = () => {
         </div>
 
         {/* Login Button */}
-        <span
-          className="material-symbols-outlined"
-          style={{
-            color: "#9ca3af",
-            fontSize: "28px",
-            cursor: "pointer",
-            transition: "color 0.15s ease",
-            flexShrink: 0,
-          }}
-          onMouseEnter={(e) =>
-            ((e.currentTarget as HTMLSpanElement).style.color = "#FF00DD")
-          }
-          onMouseLeave={(e) =>
-            ((e.currentTarget as HTMLSpanElement).style.color = "#9ca3af")
-          }
-        >
-          account_circle
-        </span>
+        <div style={{ position: "relative" }} ref={menuRef}>
+          <span
+            className="material-symbols-outlined"
+            style={{
+              color: "#9ca3af",
+              fontSize: "28px",
+              cursor: "pointer",
+              transition: "color 0.15s ease",
+              flexShrink: 0,
+            }}
+            onClick={() => setShowMenu(!showMenu)}
+            onMouseEnter={(e) =>
+              ((e.currentTarget as HTMLSpanElement).style.color = "#FF00DD")
+            }
+            onMouseLeave={(e) => {
+              if (!showMenu) {
+                (e.currentTarget as HTMLSpanElement).style.color = "#9ca3af";
+              }
+            }}
+          >
+            account_circle
+          </span>
+
+          {/* Dropdown Menu */}
+          {showMenu && (
+            <div
+              style={{
+                position: "absolute",
+                top: "100%",
+                right: "0",
+                backgroundColor: "#1a1a1a",
+                borderRadius: "8px",
+                border: "1px solid #333333",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.6)",
+                minWidth: "200px",
+                marginTop: "8px",
+                zIndex: 1000,
+              }}
+            >
+              <div
+                style={{
+                  padding: "12px 0",
+                }}
+              >
+                {[
+                  { label: "Dashboard", path: "/dashboard" },
+                  { label: "Library", path: "/library" },
+                  { label: "Settings", path: "#" },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    onClick={() => {
+                      if (item.path !== "#") {
+                        navigate(item.path);
+                      }
+                      setShowMenu(false);
+                    }}
+                    style={{
+                      padding: "12px 20px",
+                      color: "#e5e7eb",
+                      cursor: "pointer",
+                      transition: "background-color 0.15s ease",
+                      fontSize: "14px",
+                    }}
+                    onMouseEnter={(e) => {
+                      (
+                        e.currentTarget as HTMLDivElement
+                      ).style.backgroundColor = "#2a2a2a";
+                      (e.currentTarget as HTMLDivElement).style.color =
+                        "#FF00DD";
+                    }}
+                    onMouseLeave={(e) => {
+                      (
+                        e.currentTarget as HTMLDivElement
+                      ).style.backgroundColor = "transparent";
+                      (e.currentTarget as HTMLDivElement).style.color =
+                        "#e5e7eb";
+                    }}
+                  >
+                    {item.label}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
