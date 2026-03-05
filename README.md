@@ -1,17 +1,19 @@
 <h1 align="center">AO3 Dupe</h1>
 
   <p align="center">
-    A hybrid of manga and light novel websites, Wattpad, and Archive of Our Own ; a website for oneshot stories using a MERN techstack
-    <br />
-    **Nina Claudia Del Rosario & Hansen Maeve C. Quindao** 
+    A hybrid of manga and light novel websites, Wattpad, and Archive of Our Own for oneshot stories
   </p>
 
 ---
-## 📖 Overview
-**Tech Stack**: MERN (MongoDB Atlas, Express, React, Node.js)
-**Architecture**: MVC (Model-View-Controller)
+## 📖 Overview   
+
+- **Authors**: Nina Claudia Del Rosario, Hansen Maeve Quindao     
+- **Tech Stack**: MERN (MongoDB Atlas, Express, React, Node.js)      
+- **Architecture**: MVC (Model-View-Controller)
+
 ---
 ## 💻 Preparing the Environment
+
 1. Git clone this repository
 2. Install dependencies
    ```bash
@@ -26,10 +28,13 @@
 
 --- 
 ## ➡️ How to Run
+
 1. Run terminal from backend using `cd server`
 2. `npm run dev` (makes server run at localhost:5000)
 3. Run split terminal from frontend using `cd client`
 4. `npm run dev` (makes client side run at localhost:5173)
+5. Open and run http://localhost:5173/
+
 ---
 ## API Endpoints
 
@@ -53,8 +58,6 @@ Base URL: `http://localhost:5000/api/v1`
 | GET | `/library` | List all saved stories |
 | POST | `/library` | Add a story to library |
 | DELETE | `/library/:id` | Remove a story from library |
-
----
 
 ### Admin Routes
 
