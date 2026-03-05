@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose";
-import { transferableAbortSignal } from "node:util";
 
 const StorySchema = new Schema(
   {

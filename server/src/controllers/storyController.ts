@@ -18,7 +18,7 @@ export const listStories = async (
     const stories = await Story.find({ deletedAt: null }).sort({ updatedAt: -1 }).limit(50).lean();
     res.json(stories);
   } catch (err) {
-    next(new AppError("Failed to fetch stories", 500));
+    next(err);
   }
 };
 
@@ -36,7 +36,7 @@ export const getStory = async (
     if (!story) throw new AppError("Story not found", 404);
     res.json(story);
   } catch (err) {
-    next(new AppError("Failed to fetch story", 500));
+    next(err);
   }
 };
 

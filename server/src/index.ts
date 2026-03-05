@@ -6,11 +6,16 @@ import { errorHandler } from "./middleware/errorHandler";
 import storiesRouter from "./routes/stories";
 import librariesRouter from "./routes/libraries";
 import adminRouter from "./routes/admin";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 
 const app = express();
 
 // Security middleware
-// app.use(helmet()); // Temporarily disabled for debugging
+app.use(helmet());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:5173");
   res.header("Access-Control-Allow-Credentials", "true");
