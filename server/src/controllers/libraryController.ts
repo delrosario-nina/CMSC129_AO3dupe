@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { Library } from "../models/library";
+import { Library } from "../models";
 import { AppError } from "../middleware/errorHandler";
 
 // GET libraries

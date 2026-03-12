@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Story } from "../models/story";
+import { Story } from "../models";
 import { AppError } from "../middleware/errorHandler";
 
 const wordCount = (text: string) =>
@@ -112,7 +112,7 @@ export const updateStory = async (
     const story = await Story.findOneAndUpdate(
       { _id: req.params.id, deletedAt: null },
       req.body,
-      { new: true, runValidators: true },
+      { returnDocument: "after", runValidators: true },
     ).lean();
 
     if (!story) throw new AppError("Story not found", 404);
@@ -132,7 +132,7 @@ export const softDeleteStory = async (
     const story = await Story.findOneAndUpdate(
       { _id: req.params.id, deletedAt: null },
       { deletedAt: new Date() },
-      { new: true },
+      { returnDocument: "after" },
     ).lean();
 
     if (!story) throw new AppError("Story not found", 404);

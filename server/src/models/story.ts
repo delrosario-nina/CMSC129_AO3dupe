@@ -1,6 +1,6 @@
-import { Schema, model } from "mongoose";
+import { Schema } from "mongoose";
 
-const StorySchema = new Schema(
+export const StorySchema = new Schema(
   {
     title:        { type: String, required: true },
     author:       { type: String, required: true },
@@ -15,5 +15,3 @@ const StorySchema = new Schema(
   },
   { timestamps: true },
 );
-
-export const Story = model("Story", StorySchema);
